@@ -1,81 +1,70 @@
-const allStudents = document.querySelectorAll(".student-item");
-const allStudentsArray = Array.prototype.slice.call(allStudents);
-var page = 1; // list of ten students
-const totalLength = allStudents.length;
-var newArray = [];
+/******************************************
+Treehouse Techdegree:
+FSJS project 2 - List Filter and Pagination
+******************************************/
 
-const showPage = (allStudents, page) => {
-  let decidingPage = page * 10; //start at index button clicked
-  console.log(decidingPage);
+// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
-  var endOfTen = decidingPage + 10; //end at index button clicked
-  console.log(endOfTen);
+/*** 
+   Add your global variables that store the DOM elements you will 
+   need to reference and/or manipulate. 
+   
+   But be mindful of which variables should be global and which 
+   should be locally scoped to one of the two main functions you're 
+   going to create. A good general rule of thumb is if the variable 
+   will only be used inside of a function, then it can be locally 
+   scoped to that function.
+***/
+const studentList = document.querySelector(".student-list");
+const studentArray = studentList.querySelectorAll("li");
+let page = 1;
+const studentsPerPage = 10;
 
-  //picks the students that are to be shown
-  if (decidingPage < 10) {
-    allStudentsArray.style.display = "block";
-  } else {
-    var newArray = allStudentsArray.slice(decidingPage, endOfTen);
-    console.log(newArray);
-  }
+/*** 
+   Create the `showPage` function to hide all of the items in the 
+   list except for the ten you want to show.
 
-  // var listOfTen = newArray.slice(decidingPage,endOfTen);
-  // console.log(listOfTen.slice(decidingPage,endOfTen));
+   Pro Tips: 
+     - Keep in mind that with a list of 54 students, the last page 
+       will only display four.
+     - Remember that the first student has an index of 0.
+     - Remember that a function `parameter` goes in the parens when 
+       you initially define the function, and it acts as a variable 
+       or a placeholder to represent the actual function `argument` 
+       that will be passed into the parens later when you call or 
+       "invoke" the function 
+***/
+function showPage(list, page) {
+  // loop over items in the list parameter
+  // If the index of the list item is >= the index of the first item that should be shown on the page
+  // and the list item index is <= the index of the last item that should be shown on the page, show it
+  const firstStudent = page * 10 - 10;
+  const lastStudent = page * 10 - 1;
 
-  // hides all the students except ten
-  for (let i = 0; i < allStudentsArray.length; i++) {
-    if (allStudentsArray[i] <= 10) {
-      allStudentsArray[i].style.display = "block";
+  for (let i = 0; i < list.length; i++) {
+    if (i >= firstStudent && i <= lastStudent) {
+      list[i].style.display = "block";
     } else {
-      allStudentsArray[i].style.display = "none";
+      list[i].style.display = "none";
     }
   }
+}
 
-  //shows the students that are picked from newArray
-  for (let i = 0; i < newArray.length; i++) {
-    if (newArray[i]) {
-      newArray[i].style.display = "block";
-    }
-  }
-};
-showPage(allStudents, page);
+showPage(studentArray, page);
 
-const appendPageLinks = (allStudentsArray) => {
-  students = allStudentsArray.length;
-  console.log(students);
-  let howManyPages = Math.ceil(students / 10);
-  console.log(howManyPages);
+/*** 
+   Create the `appendPageLinks function` to generate, append, and add 
+   functionality to the pagination buttons.
+***/
 
-  var newDiv = document.createElement("div");
-  newDiv.setAttribute("class", "pagination");
-  var endOfPage = document.querySelector(".page"); //so button are on page bottom
-  endOfPage.appendChild(newDiv);
-  var newUl = document.createElement("ul");
-  newDiv.appendChild(newUl);
-  var newLi = document.createElement("li");
-  newLi.setAttribute("a", "");
-  newLi.setAttribute("class", "active");
+function appendPageLinks() {
+  // Determine how mandy pages are needed for the list by dividing the total number of list items by the max number of items per page
+  // Create a div, give it the pagination class, and append it to the .page div
+  // Add a ul to the pagination div to store the pagination links
+  // For each page, add li and a tags with the page number text
+  // Add an event listener to each a tag. When they are clicked call the showPage function to display the appropriate page
+  // Loop over pagination links to remove active class from all links
+  // Add the active class to the link that was just clicked. You can identify tht clicked link using event.target
+}
 
-  for (let i = 1; i < howManyPages; i++) {
-    var newLi = document.createElement("li");
-    newLi.setAttribute("a", "");
-    newLi.setAttribute("class", "active");
-    newLi.setAttribute("href", "#");
-    newLi.setAttribute("id", [i]);
-    newLi.innerHTML = [i];
-    newUl.appendChild(newLi);
-
-    //put a click event handler on li tags
-    document.querySelector(".pagination").addEventListener("click", (e) => {
-      var anchor = event.target.id;
-      //var pageNumbers = document.getElementById('anchor');
-      console.log(anchor);
-
-      if (anchor) {
-        showPage(students, anchor);
-      }
-    });
-  }
-};
-
-appendPageLinks(allStudentsArray);
+// Remember to delete the comments that came with this file, and replace them with your own code comments.
