@@ -60,7 +60,6 @@ showPage(studentArray, page);
 function appendPageLinks() {
   // Determine how mandy pages are needed for the list by dividing the total number of list items by the max number of items per page
   let pageCount = Math.ceil(studentArray.length / 10);
-  console.log(pageCount);
   // Create a div, give it the pagination class, and append it to the .page div
   const div = document.createElement("div");
   div.classList.add("pagination");
@@ -76,17 +75,17 @@ function appendPageLinks() {
     a.textContent = i;
     li.appendChild(a);
     ul.appendChild(li);
-    console.log(i);
   }
   // Add an event listener to each a tag. When they are clicked call the showPage function to display the appropriate page
   let aTagArray = document.querySelectorAll("a");
   aTagArray.forEach(function(e) {
     e.addEventListener("click", () => {
       showPage(studentArray, e.textContent);
+      // Loop over pagination links to remove active class from all links
+      e.classList.remove("active");
     });
   });
-  // Loop over pagination links to remove active class from all links
-  // Add the active class to the link that was just clicked. You can identify tht clicked link using event.target
+  // Add the active class to the link that was just clicked. You can identify that clicked link using event.target
 }
 
 appendPageLinks();
