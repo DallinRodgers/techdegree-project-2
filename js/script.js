@@ -80,12 +80,15 @@ function appendPageLinks() {
   let aTagArray = document.querySelectorAll("a");
   aTagArray.forEach(function(e) {
     e.addEventListener("click", () => {
-      showPage(studentArray, e.textContent);
       // Loop over pagination links to remove active class from all links
-      e.classList.remove("active");
+      for (let i = 0; i < aTagArray.length; i++) {
+        aTagArray[i].classList.remove("active");
+      }
+      showPage(studentArray, e.textContent);
+      // Add the active class to the link that was just clicked. You can identify that clicked link using event.target
+      e.classList.add("active");
     });
   });
-  // Add the active class to the link that was just clicked. You can identify that clicked link using event.target
 }
 
 appendPageLinks();
