@@ -25,8 +25,6 @@ function showPage(list, page) {
   }
 }
 
-showPage(studentArray, page);
-
 // Append Page Links at bottom of list
 function appendPageLinks() {
   function changePage() {
@@ -75,32 +73,4 @@ function appendPageLinks() {
 }
 
 appendPageLinks();
-
-// Filter Names
-function FilterNames() {
-  function createSearch() {
-    const div = document.createElement("div");
-    div.classList.add("student-search");
-
-    const input = document.createElement("input");
-    input.classList.add("filterInput");
-    input.setAttribute("type", "text");
-    input.setAttribute("placeholder", "Search for students...");
-
-    const button = document.createElement("button");
-    button.textContent = "Search";
-
-    div.appendChild(input);
-    div.appendChild(button);
-
-    const pageHeader = document.querySelector(".page-header");
-    pageHeader.appendChild(div);
-  }
-
-  const input = document.getElementsByTagName("input");
-  let filterValue = input;
-
-  createSearch();
-}
-
-FilterNames();
+showPage(studentArray, page);
